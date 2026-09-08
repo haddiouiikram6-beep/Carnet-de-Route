@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
+const tripsRoutes = require("./routes/trips.routes");
 const app = express();
 
 app.use(cors());
