@@ -6,13 +6,14 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/trips", tripsRoutes);
 const PORT = 3000;
-app.get("/",(req, res)=>{
+app.get("/", (req, res) => {
     res.json({
         message: "Carnet de Route API is running",
     });
 });
-app.listen(PORT, () =>{
-console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 
 });
