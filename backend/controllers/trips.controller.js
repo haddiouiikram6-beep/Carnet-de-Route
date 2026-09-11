@@ -47,8 +47,49 @@ const createTrip = (req, res) => {
   res.status(201).json(newTrip);
 };
 
+const updateTrip = (req, res) => {
+  const id = Number(req.params.id);
+  const trip = trips.find((item) => item.id === id);
+
+  if (!trip) {
+    return res.status(404).json({ message: "Voyage introuvable" });
+  }
+
+  const { title, destination, startDate, endDate, notes } = req.body;
+
+  if (!title || !destination || !startDate || !endDate) {
+    return res.status(400).json({
+      message: "title, destination, startDate et endDate sont obligatoires"
+    });
+  }
+
+  Object.assign(trip, {
+    title,
+    destination,
+    startDate,
+    endDate,
+    notes: notes || ""
+  });
+
+  res.status(200).json(trip);
+};
+
+const deleteTrip = (req, res) => {
+  const id = Number(req.params.id);
+  const tripIndex = trips.findIndex((item) => item.id === id);
+
+  if (tripIndex === -1) {
+    return res.status(404).json({ message: "Voyage introuvable" });
+  }
+
+  trips.splice(tripIndex, 1);
+  res.status(204).send();
+};
+
 module.exports = {
   getTrips,
   getTripById,
-  createTrip
+  createTrip,
+  updateTrip,
+  deleteTrip
 };
